@@ -1,0 +1,7 @@
+apiVersion: demo.mriyam.dev/v1alpha1
+kind: CustomDeployment
+metadata:
+  name: customdeployment-sample
+spec:
+  image: alpine
+  replicas: 5
