@@ -1,0 +1,9 @@
+domain: mriyam.com
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: podset-operator
+repo: github.com/mbtamuli/k8s/operators/podset-operator
+version: "3"
