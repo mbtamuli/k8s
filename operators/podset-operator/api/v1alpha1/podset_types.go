@@ -25,17 +25,12 @@ import (
 
 // PodSetSpec defines the desired state of PodSet
 type PodSetSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of PodSet. Edit podset_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Replicas int32 `json:"replicas"`
 }
 
 // PodSetStatus defines the observed state of PodSet
 type PodSetStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	PodNames []string `json:"podNames"`
 }
 
 //+kubebuilder:object:root=true
