@@ -30,6 +30,7 @@ type PodSetSpec struct {
 
 // PodSetStatus defines the observed state of PodSet
 type PodSetStatus struct {
+	Replicas int32    `json:"replicas"`
 	PodNames []string `json:"podNames"`
 }
 
