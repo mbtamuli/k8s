@@ -1,0 +1,85 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: humans.mammals.mriyam.com
+spec:
+  group: mammals.mriyam.com
+  names:
+    kind: Human
+    listKind: HumanList
+    plural: humans
+    singular: human
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: Human is the Schema for the humans API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: HumanSpec defines the desired state of Human
+            properties:
+              hands:
+                description: Quantity of hands
+                format: int32
+                maximum: 2
+                minimum: 0
+                type: integer
+              legs:
+                description: Quantity of legs
+                format: int32
+                maximum: 2
+                minimum: 0
+                type: integer
+              mothertongue:
+                description: Language of the human
+                enum:
+                - English
+                - Hindi
+                type: string
+              tails:
+                description: Quantity of tails
+                format: int32
+                maximum: 1
+                minimum: 0
+                type: integer
+            required:
+            - hands
+            - legs
+            - mothertongue
+            - tails
+            type: object
+          status:
+            description: HumanStatus defines the observed state of Human
+            properties:
+              configmap:
+                description: ConfigMapName of the active Human node.
+                type: string
+              pod:
+                description: PodName of the active Human node.
+                type: string
+            required:
+            - configmap
+            - pod
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

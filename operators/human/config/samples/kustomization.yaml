@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- mammals_v1_human.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples
