@@ -18,7 +18,10 @@ package controller
 
 import (
 	"context"
+	"fmt"
 
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -36,20 +39,70 @@ type HumanReconciler struct {
 //+kubebuilder:rbac:groups=mammals.mriyam.com,resources=humans,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=mammals.mriyam.com,resources=humans/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=mammals.mriyam.com,resources=humans/finalizers,verbs=update
+//+kubebuilder:rbac:groups=core,resources=pods,verbs=create;
 
-// Reconcile is part of the main kubernetes reconciliation loop which aims to
-// move the current state of the cluster closer to the desired state.
-// TODO(user): Modify the Reconcile function to compare the state specified by
-// the Human object against the actual cluster state, and then
-// perform operations to make the cluster state reflect the state specified by
-// the user.
-//
-// For more details, check Reconcile and its Result here:
-// - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.14.4/pkg/reconcile
 func (r *HumanReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := log.FromContext(ctx)
 
-	// TODO(user): your logic here
+	log.Info("Reconciling Human")
+
+	var human mammalsv1.Human
+	if err := r.Get(ctx, req.NamespacedName, &human); err != nil {
+		log.Error(err, "unable to fetch Human")
+		// we'll ignore not-found errors, since they can't be fixed by an immediate
+		// requeue (we'll need to wait for a new notification), and we can get them
+		// on deleted requests.
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	constructPodForHuman := func(human *mammalsv1.Human) (*corev1.Pod, error) {
+		message := fmt.Sprintf("%s has %d legs, %d hands and %d tails. Also, %s speaks in %s",
+			human.Name,
+			human.Spec.Legs,
+			human.Spec.Hands,
+			human.Spec.Tails,
+			human.Name,
+			human.Spec.MotherTongue)
+
+		pod := &corev1.Pod{
+			ObjectMeta: metav1.ObjectMeta{
+				Name:      human.Name,
+				Namespace: human.Namespace,
+			},
+			Spec: corev1.PodSpec{
+				Containers: []corev1.Container{
+					{
+						Name:  "human",
+						Image: "busybox",
+						Args: []string{
+							"echo",
+							fmt.Sprintf("%q", message),
+						},
+					},
+				},
+			},
+		}
+
+		if err := ctrl.SetControllerReference(human, pod, r.Scheme); err != nil {
+			return nil, err
+		}
+
+		return pod, nil
+	}
+
+	pod, err := constructPodForHuman(&human)
+	if err != nil {
+		log.Error(err, "unable to construct pod from Human spec")
+		// don't bother requeuing until we get a change to the spec
+		return ctrl.Result{}, nil
+	}
+
+	if err := r.Create(ctx, pod); err != nil {
+		log.Error(err, "unable to create Pod for Human", "pod", pod)
+		return ctrl.Result{}, err
+	}
+
+	log.V(1).Info("created Pod for Human", "pod", pod)
 
 	return ctrl.Result{}, nil
 }

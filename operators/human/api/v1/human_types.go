@@ -20,28 +20,25 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // HumanSpec defines the desired state of Human
 type HumanSpec struct {
 	// Quantity of hands
-	// +kubebuilder:validation:Minimum=0
-	// +kubebuilder:validation:Maximum=2
+	//+kubebuilder:validation:Minimum=0
+	//+kubebuilder:validation:Maximum=2
 	Hands int32 `json:"hands"`
 
 	// Quantity of legs
-	// +kubebuilder:validation:Minimum=0
-	// +kubebuilder:validation:Maximum=2
+	//+kubebuilder:validation:Minimum=0
+	//+kubebuilder:validation:Maximum=2
 	Legs int32 `json:"legs"`
 
 	// Language of the human
-	// +kubebuilder:validation:Enum=English;Hindi
+	//+kubebuilder:validation:Enum=English;Hindi
 	MotherTongue string `json:"mothertongue"`
 
 	// Quantity of tails
-	// +kubebuilder:validation:Minimum=0
-	// +kubebuilder:validation:Maximum=1
+	//+kubebuilder:validation:Minimum=0
+	//+kubebuilder:validation:Maximum=1
 	Tails int32 `json:"tails"`
 }
 

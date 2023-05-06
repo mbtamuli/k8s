@@ -22,5 +22,5 @@ status:
 ```
 
 It is then supposed to do
-- [ ] Creates a container which outputs to STDOUT - `{{ name }} has {{ feet }} feet, {{ hand }} hands and {{ tail }} tails. Also, {{ name }} speaks in {{ mothertongue }}`
+- [x] Creates a container which outputs to STDOUT - `{{ name }} has {{ feet }} feet, {{ hand }} hands and {{ tail }} tails. Also, {{ name }} speaks in {{ mothertongue }}`
 - [ ] Creates a ConfigMap with data containing all the elements of the `.spec` of the Human CR

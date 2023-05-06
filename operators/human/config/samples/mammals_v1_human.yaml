@@ -9,4 +9,7 @@ metadata:
     app.kubernetes.io/created-by: human
   name: human-sample
 spec:
-  # TODO(user): Add fields here
+  hands: 2
+  legs: 2
+  mothertongue: English
+  tails: 0
