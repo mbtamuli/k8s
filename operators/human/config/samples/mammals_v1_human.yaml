@@ -1,0 +1,12 @@
+apiVersion: mammals.mriyam.com/v1
+kind: Human
+metadata:
+  labels:
+    app.kubernetes.io/name: human
+    app.kubernetes.io/instance: human-sample
+    app.kubernetes.io/part-of: human
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: human
+  name: human-sample
+spec:
+  # TODO(user): Add fields here
