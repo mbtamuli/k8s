@@ -13,9 +13,12 @@ metadata:
     namespace: test
 spec:
     hands: 2
-    feet: 2
+    legs: 2
     mothertongue: English
     tail: 0
+status:
+    pod: nameOfPodCreated
+    configMap: nameOfConfigMapCreated
 ```
 
 It is then supposed to do

@@ -25,17 +25,33 @@ import (
 
 // HumanSpec defines the desired state of Human
 type HumanSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Quantity of hands
+	// +kubebuilder:validation:Minimum=0
+	// +kubebuilder:validation:Maximum=2
+	Hands int32 `json:"hands"`
 
-	// Foo is an example field of Human. Edit human_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Quantity of legs
+	// +kubebuilder:validation:Minimum=0
+	// +kubebuilder:validation:Maximum=2
+	Legs int32 `json:"legs"`
+
+	// Language of the human
+	// +kubebuilder:validation:Enum=English;Hindi
+	MotherTongue string `json:"mothertongue"`
+
+	// Quantity of tails
+	// +kubebuilder:validation:Minimum=0
+	// +kubebuilder:validation:Maximum=1
+	Tails int32 `json:"tails"`
 }
 
 // HumanStatus defines the observed state of Human
 type HumanStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// PodName of the active Human node.
+	Pod string `json:"pod"`
+
+	// ConfigMapName of the active Human node.
+	ConfigMap string `json:"configmap"`
 }
 
 //+kubebuilder:object:root=true
