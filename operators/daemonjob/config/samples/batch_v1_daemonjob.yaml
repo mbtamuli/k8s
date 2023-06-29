@@ -1,0 +1,12 @@
+apiVersion: batch.mriyam.com/v1
+kind: DaemonJob
+metadata:
+  labels:
+    app.kubernetes.io/name: daemonjob
+    app.kubernetes.io/instance: daemonjob-sample
+    app.kubernetes.io/part-of: daemonjob
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: daemonjob
+  name: daemonjob-sample
+spec:
+  # TODO(user): Add fields here
