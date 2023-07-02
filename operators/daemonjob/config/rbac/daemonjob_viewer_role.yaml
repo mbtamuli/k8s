@@ -1,0 +1,27 @@
+# permissions for end users to view daemonjobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: daemonjob-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: daemonjob
+    app.kubernetes.io/part-of: daemonjob
+    app.kubernetes.io/managed-by: kustomize
+  name: daemonjob-viewer-role
+rules:
+- apiGroups:
+  - batch.mriyam.com
+  resources:
+  - daemonjobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch.mriyam.com
+  resources:
+  - daemonjobs/status
+  verbs:
+  - get

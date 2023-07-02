@@ -1,0 +1,15 @@
+apiVersion: batch.mriyam.com/v1
+kind: DaemonJob
+metadata:
+  name: daemonjob-sample
+spec:
+  template:
+      #metadata:
+      #  labels:
+      #    name: daemonjob-sample
+      spec:
+        containers:
+        - name: busybox
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args: ["sleep 3600"]
