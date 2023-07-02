@@ -1,25 +1,19 @@
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // DaemonJobSpec defines the desired state of DaemonJob
 type DaemonJobSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of DaemonJob. Edit daemonjob_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Template corev1.PodTemplateSpec `json:"template,omitempty"`
 }
 
 // DaemonJobStatus defines the observed state of DaemonJob
 type DaemonJobStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	DesiredNumberScheduled int32 `json:"desiredNumberScheduled"`
+	CurrentNumberScheduled int32 `json:"currentNumberScheduled"`
 }
 
 //+kubebuilder:object:root=true
